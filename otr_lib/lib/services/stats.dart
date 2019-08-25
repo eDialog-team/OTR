@@ -5,8 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 import 'package:either_option/either_option.dart';
-import 'package:otr_lib/common/states.dart';
-
+import 'package:otr_lib/models/states.dart';
 import 'package:otr_lib/models/stats.dart';
 
 import 'package:dio/dio.dart';
@@ -15,17 +14,20 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:otr_lib/app.dart';
 
 final _requestUrl =
-    "webservice/_proxy_stats.asp?uri=v1%2Fstats%2Fsoccer%2Ffran%2Fscores%2F&season=2019&accept=json&timestamp=1566315421&languageId=6&v=";
+    "webservice/_proxy_stats.asp?uri=v1%2Fstats%2Fsoccer%2Ffran%2Fscores%2F&accept=json&languageId=6&v=";
 
 // Copy root dio http client config
 final _statdio = Dio(dio.options)
   // add custom interceptor for this ws
   ..interceptors.add(InterceptorsWrapper(
-    // When the response data is empty (ws is kinda funky) it mean should fail
-    onResponse: (Response response) {
+    // When the response data is empty (ws is kinda funky) it is a failure.
+    onResponse: (Response response) async {
       if (response.data == "") {
         debugPrint("ERROR: " + response.request.uri.toString());
-        return dio.reject("edialog stats.com PROXY error");
+        // don't save the response in cache and serve request from the cache
+        Response rejectResponse =
+            await dio.reject("edialog stats.com PROXY error");
+        return rejectResponse;
       }
       return response;
     },
@@ -35,7 +37,7 @@ final _statdio = Dio(dio.options)
 
 class _Response {
   // TODO: if status != OK throw an exception
-  static Either<OTRState, List<Events>> parse(String responseBody) {
+  static Either<OTRState, League> parse(String responseBody) {
     dynamic parsed = jsonDecode(responseBody);
     if (parsed.runtimeType == String) {
       // required, when using cache, need to parse twice
@@ -52,21 +54,27 @@ class _Response {
         apiResults.add(new ApiResults.fromJson(v));
       });
     }
-    print(apiResults[0].league.toJson().toString());
-
     // TODO check of access to eventType is valid.
-    return new Right(apiResults[0].league.season.eventType[0].events);
+    return new Right(apiResults[0].league);
   }
 }
 
-Future<Either<OTRState, List<Events>>> fetchStats() async {
+Future<Either<OTRState, League>> fetchStats(
+    {@required int year, bool useCache = true}) async {
   // with dio cache
   Response<String> response = await _statdio.get(
     _requestUrl,
+    queryParameters: {
+      "timestamp": (DateTime.now().millisecondsSinceEpoch / 1000).truncate(),
+      "season": year,
+    },
     // use cache
     options: buildCacheOptions(
-      Duration(hours: 1), // cache directly
-      maxStale: Duration(days: 7), // network first / if error fallback to cache
+      Duration(hours: 2), // cache directly
+      maxStale: Duration(days: 3), // network first / if error fallback to cache
+      primaryKey: "stats-dot-com-request-key-{$year}",
+      subKey: "",
+      forceRefresh: !useCache,
     ),
   );
   debugPrint(response.request.uri.toString());
@@ -82,6 +90,7 @@ class Stats {
 
   static Events closestEvent(List<Events> events) {
     var now = new DateTime.now();
+    // now = now.subtract(Duration(days: 11)); // for testing
 
     var eventsWithDate = events.map((e) {
       var startDate = e.startDate[0];
@@ -98,31 +107,51 @@ class Stats {
     return event[0];
   }
 
+  static final aVenirStr = "A venir";
+
   static String introduceMessage(Events event) {
     var now = new DateTime.now();
-    var endDate = event.startDate[0];
-    var startDate = event.startDate[1];
+    var startDate = event.startDate[0];
     var eventStartDate = DateTime(startDate.year, startDate.month,
-        startDate.date, startDate.hour, startDate.minute);
-    var eventEndDate = DateTime(endDate.year, endDate.month, endDate.date,
-        endDate.hour, endDate.minute);
+        startDate.date, startDate.hour ?? 0, startDate.minute ?? 0);
 
-    if (now.difference(eventStartDate).inHours < 0) {
-      return "A venir";
+    if (now.difference(eventStartDate).inMinutes < 0) {
+      return aVenirStr;
     }
-    if (now.difference(eventStartDate).inMinutes > 0 &&
-        now.difference(eventEndDate).inMinutes < 0) {
+    if (event.eventStatus.isActive) {
       return "En cours";
     }
 
     return "Dernier match";
   }
 
-  static String eventStartDatePretty(Events event) {
-    var startDate = event.startDate[1];
+  static String eventStartDatePretty(Events event, {bool showHour = true}) {
+    var startDate = event.startDate[0];
     var eventStartDate = DateTime(startDate.year, startDate.month,
-        startDate.date, startDate.hour, startDate.minute);
+        startDate.date, startDate.hour ?? 0, startDate.minute ?? 0);
+
+    var format = 'EEEE d/MM';
+    if (showHour) {
+      format = 'EEEE d/MM à HH:mm';
+    }
     return toBeginningOfSentenceCase(
-        DateFormat('EEEE d/MM à HH:mm', "fr_FR").format(eventStartDate));
+        DateFormat(format, "fr_FR").format(eventStartDate));
+  }
+
+  static String eventScoreDispay(Events event) {
+    // if event canceled
+    if (event.eventStatus.eventStatusId == 5) {
+      if (event.eventStatus.name.toLowerCase() == "postponed") {
+        return "Reporté";
+      }
+      return "Annulé";
+    }
+
+    var message = introduceMessage(event);
+    if (message == aVenirStr) {
+      return message;
+    }
+
+    return "${event.teams[0].score} | ${event.teams[1].score}";
   }
 }

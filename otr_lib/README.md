@@ -42,4 +42,16 @@ Data processing/filtering should be placed along the http call definition.
 For a clearer and more maintainable package, services should always return an
 [Either](https://pub.dev/packages/either_option). The different possible types
 of the Either should be the success result of the API content OR loading/error
-states defined in `lib/common/states.dart`.
+states defined in `lib/models/states.dart`.
+
+## Tips / Style
+- Format your code with the official formater (fmt): [Code formatting](https://flutter.dev/docs/development/tools/formatting)  
+- null check using [the dart null-aware operators](https://stackoverflow.com/questions/17006664/what-is-the-dart-null-checking-idiom-or-best-practice)
+- Always check if you aren't doing unnecessary redraw (one `notifyListeners` can
+    be the cause!)
+- Don't use global variable!  
+- Don't use [`StatefulWidget`](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)! Data must me share through Provider.  
+- Don't make a `otr_lib` for each project, find solution that doesn't require copying this
+library.  
+- Don't abuse methods in objects. Prefer functions for data processing.
+- Don't use null or undefined objects.

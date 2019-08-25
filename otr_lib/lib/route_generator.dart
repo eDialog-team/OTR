@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otr_lib/screens/accueil.dart';
+import 'package:otr_lib/screens/main.dart';
 import 'package:otr_lib/screens/article.dart';
 
 import 'package:otr_lib/models/corpus.dart';

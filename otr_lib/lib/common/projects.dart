@@ -6,6 +6,7 @@ class OTRProjects {
   String _httpRoot;
   String _projectName;
   int _teamID;
+  bool _useCache = true;
 
   OTRProjects(String projectName) {
     this._projectName = projectName;
@@ -49,4 +50,7 @@ class OTRProjects {
   String get httpRoot => _httpRoot;
   String get projectName => _projectName;
   int get teamID => _teamID;
+  bool get useCache => _useCache;
+  void disableCache() => _useCache = false;
+  void enableCache() => _useCache = true;
 }

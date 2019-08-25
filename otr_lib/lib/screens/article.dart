@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'package:otr_lib/models/corpus.dart';
 import 'package:otr_lib/screens/widgets/article_content.dart';
-import 'package:otr_lib/screens/widgets/common.dart';
 
 class OTRArticle extends StatelessWidget {
   final Media media;
@@ -18,7 +17,9 @@ class OTRArticle extends StatelessWidget {
         Provider<Media>.value(value: media),
       ],
       child: Scaffold(
-        appBar: OTRAppBar(),
+        appBar: AppBar(
+          title: Text("Article"),
+        ),
         body: OTRArticleContent(),
       ),
     );

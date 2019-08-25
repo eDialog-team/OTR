@@ -8,7 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:otr_lib/screens/widgets/common.dart';
 
-import 'package:otr_lib/common/states.dart';
+import 'package:otr_lib/models/states.dart';
 import 'package:otr_lib/models/corpus.dart';
 import 'package:otr_lib/models/current_page.dart';
 import 'package:otr_lib/services/corpus.dart';
@@ -92,19 +92,14 @@ class _CorpusCarousel extends StatelessWidget {
         pagination: SwiperPagination(margin: EdgeInsets.all(8.0)),
         itemCount: _medias.length,
         onTap: (i) {
-          var _currentPage = Provider.of<CurrentPage>(context);
+          var _currentPage = Provider.of<MainPagePosition>(context);
           var _oldPage = _currentPage.navigationItem;
-          // change the AppBar title
-          _currentPage.setNavigationItem(OTRNavigation.article);
 
           // Open arctile
-          Navigator.of(context)
-              .pushNamed(
-                '/article',
-                arguments: _medias[i],
-              )
-              // on pop change the AppBar title back to the old page name
-              .whenComplete(() => _currentPage.setNavigationItem(_oldPage));
+          Navigator.of(context).pushNamed(
+            '/article',
+            arguments: _medias[i],
+          );
         },
         itemBuilder: (context, i) {
           return Hero(

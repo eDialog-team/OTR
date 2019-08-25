@@ -39,7 +39,7 @@ class OTRApp extends StatelessWidget {
     // Using MultiProvider is convenient when providing multiple objects.
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => CurrentPage()),
+        ChangeNotifierProvider(builder: (_) => MainPagePosition()),
         Provider<OTRProjects>.value(value: _project),
       ],
       child: MaterialApp(

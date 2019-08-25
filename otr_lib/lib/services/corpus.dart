@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:dio/dio.dart';
 import 'package:either_option/either_option.dart';
-import 'package:otr_lib/common/states.dart';
+import 'package:otr_lib/models/states.dart';
 
 import 'package:otr_lib/models/corpus.dart';
 import 'package:otr_lib/app.dart';

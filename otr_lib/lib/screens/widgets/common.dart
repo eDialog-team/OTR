@@ -9,14 +9,15 @@ import 'package:otr_lib/models/current_page.dart';
 /// Contains multiples WIDGET that are often used (appbar/navbar..)
 
 class OTRAppBar extends StatelessWidget implements PreferredSizeWidget {
-  @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
+  @override
   Widget build(BuildContext context) {
-    var _item = Provider.of<CurrentPage>(context).navigationItem;
+    var _item = Provider.of<MainPagePosition>(context);
 
     return AppBar(
-      title: Text(OTRNavigationHelper.getDisplay(_item)["text"]),
+      title: Text(_item.getText()),
+      actions: _item.appBarActions,
     );
   }
 }
@@ -26,11 +27,13 @@ class OTRBottomNavigationBar extends StatelessWidget {
     OTRNavigation.home,
     OTRNavigation.people,
     OTRNavigation.calendar,
-    OTRNavigation.shopping,
-    OTRNavigation.param
+    // OTRNavigation.shopping,
+    // OTRNavigation.param
   ];
+
+  @override
   Widget build(BuildContext context) {
-    final _currentPage = Provider.of<CurrentPage>(context);
+    final _currentPage = Provider.of<MainPagePosition>(context);
     var _index = OTRNavigation.values.indexOf(_currentPage.navigationItem);
     if (_index >= bottomItems.length) {
       _index = 0;
@@ -59,6 +62,7 @@ class OTRUtils {
     @required BuildContext context,
     bool pop = false,
     bool postFrame = true,
+    VoidCallback after,
   }) {
     showSnackBar() => Flushbar(
           message: message,
@@ -80,6 +84,9 @@ class OTRUtils {
       // after the repaint is complete, display a snackBar info
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showSnackBar();
+        if (after != null) {
+          after();
+        }
       });
     } else {
       showSnackBar();

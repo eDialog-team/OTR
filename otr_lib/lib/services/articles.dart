@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:either_option/either_option.dart';
-import 'package:otr_lib/common/states.dart';
+import 'package:otr_lib/models/states.dart';
 
 import 'package:otr_lib/models/article.dart';
 
@@ -37,8 +37,8 @@ Future<Either<OTRState, Article>> fetchArticle({
     _requestUrl,
     queryParameters: {"id": articleId},
     options: buildCacheOptions(
-      Duration(hours: 3), // cache directly
-      maxStale: Duration(days: 1), // network first / if error fallback to cache
+      Duration(hours: 9), // cache directly
+      maxStale: Duration(days: 3), // network first / if error fallback to cache
     ),
   );
   debugPrint(response.request.uri.toString());

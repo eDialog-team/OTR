@@ -4,7 +4,7 @@ import 'package:either_option/either_option.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:otr_lib/screens/widgets/common.dart';
-import 'package:otr_lib/common/states.dart';
+import 'package:otr_lib/models/states.dart';
 
 import 'package:otr_lib/models/corpus.dart';
 import 'package:otr_lib/models/article.dart';

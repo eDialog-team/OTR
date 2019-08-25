@@ -279,7 +279,7 @@ class EventStatus {
   int period;
   Time time;
   bool isActive;
-  Null defendingXZeroTeamId;
+  int defendingXZeroTeamId;
   int announcedInjuryTime;
   bool underReview;
   String name;
