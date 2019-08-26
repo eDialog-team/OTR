@@ -93,7 +93,6 @@ class _CorpusCarousel extends StatelessWidget {
         itemCount: _medias.length,
         onTap: (i) {
           var _currentPage = Provider.of<MainPagePosition>(context);
-          var _oldPage = _currentPage.navigationItem;
 
           // Open arctile
           Navigator.of(context).pushNamed(

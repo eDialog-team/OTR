@@ -59,8 +59,11 @@ class _Response {
   }
 }
 
-Future<Either<OTRState, League>> fetchStats(
-    {@required int year, bool useCache = true}) async {
+Future<Either<OTRState, League>> fetchStats({
+  @required int year,
+  bool useCache = true,
+  bool cacheForever = false,
+}) async {
   // with dio cache
   Response<String> response = await _statdio.get(
     _requestUrl,
@@ -70,9 +73,10 @@ Future<Either<OTRState, League>> fetchStats(
     },
     // use cache
     options: buildCacheOptions(
-      Duration(hours: 2), // cache directly
+      Duration(hours: cacheForever ? 1800 : 2), // cache directly
       maxStale: Duration(days: 3), // network first / if error fallback to cache
-      primaryKey: "stats-dot-com-request-key-{$year}",
+      primaryKey:
+          "stats-dot-com-request-key-$year-${cacheForever ? 'forever' : ''}",
       subKey: "",
       forceRefresh: !useCache,
     ),

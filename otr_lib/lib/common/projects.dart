@@ -4,8 +4,10 @@ class OTRProjects {
   MaterialColor _materialColor;
   ThemeData _themeData;
   String _httpRoot;
+  String _billetterie;
   String _projectName;
   int _teamID;
+  int _currentSeason;
   bool _useCache = true;
 
   OTRProjects(String projectName) {
@@ -41,14 +43,18 @@ class OTRProjects {
       );
 
       _httpRoot = "https://m.memberz.fr/dfco/";
+      _billetterie = "https://billetterie-dfco.fr/fr/calendar/events/";
       _teamID = 8723;
+      _currentSeason = 2019;
     }
   }
 
   MaterialColor get materialColor => _materialColor;
   ThemeData get themeData => _themeData;
   String get httpRoot => _httpRoot;
+  String get billeterieUrl => _billetterie;
   String get projectName => _projectName;
+  int get currentSeasonYear => _currentSeason;
   int get teamID => _teamID;
   bool get useCache => _useCache;
   void disableCache() => _useCache = false;

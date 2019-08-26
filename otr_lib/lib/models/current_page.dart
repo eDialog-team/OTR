@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 
 class MainPagePosition with ChangeNotifier {
   OTRNavigation _pageNavitaionValue = OTRNavigation.home;
-  Map<String, Widget> _appBarActions = Map<String, Widget>();
+  List<Widget> _appBarActions = List<Widget>();
 
   OTRNavigation get navigationItem => _pageNavitaionValue;
 
@@ -13,15 +13,12 @@ class MainPagePosition with ChangeNotifier {
     notifyListeners();
   }
 
-  void setAppBarActions(Map<String, Widget> widgets) {
-    if (listEquals<String>(
-        widgets.keys.toList(), _appBarActions.keys.toList())) {
-      return;
-    }
-    _appBarActions = widgets;
+  void setAppBarActions(List<Widget> widgets) {
+    _appBarActions =
+        widgets; // no redraw, will cause 2 API calls (if needed look into Provider.Selector)!
   }
 
-  List<Widget> get appBarActions => _appBarActions.values.toList();
+  List<Widget> get appBarActions => _appBarActions;
 
   IconData getIcon() {
     return OTRNavigationHelper.getDisplay(this._pageNavitaionValue)["icon"];
@@ -32,7 +29,7 @@ class MainPagePosition with ChangeNotifier {
   }
 }
 
-enum OTRNavigation { home, people, calendar, shopping, param }
+enum OTRNavigation { home, people, calendar, classement, shopping, param }
 
 class OTRNavigationHelper {
   static Map<String, Object> getDisplay(OTRNavigation value) {
@@ -47,6 +44,9 @@ class OTRNavigationHelper {
         return {"icon": Icons.shopping_cart, "text": 'Boutique'};
       case OTRNavigation.param:
         return {"icon": Icons.tune, "text": 'Params'};
+
+      case OTRNavigation.classement:
+        return {"icon": Icons.poll, "text": 'Classement'};
 
       default:
         return {"icon": Icons.home, "text": "Accueil"};

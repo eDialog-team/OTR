@@ -235,7 +235,7 @@ class _ArticleContent extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Spacer(flex: 6),
-                            Icon(Icons.launch, size: 18),
+                            Icon(Icons.open_in_browser, size: 18),
                             Spacer(flex: 1),
                             Text(
                               'Lire sur le site web',

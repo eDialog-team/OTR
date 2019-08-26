@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:otr_lib/screens/main.dart';
 import 'package:otr_lib/screens/article.dart';
+import 'package:otr_lib/screens/team_ranking.dart';
 
 import 'package:otr_lib/models/corpus.dart';
+import 'package:otr_lib/models/stats.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,6 +14,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => OTRAccueil());
+
       case '/article':
         // Validation of correct data type
         if (args is Media) {
@@ -21,9 +24,13 @@ class RouteGenerator {
             ),
           );
         }
-        // If args is not of the correct type, return an error page.
-        // You can also throw an exception while in development.
         return _errorRoute(settings.name);
+
+      case '/classement':
+        return MaterialPageRoute(
+          builder: (_) => OTRTeamRanking(),
+        );
+
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute(settings.name);
@@ -37,7 +44,7 @@ class RouteGenerator {
           title: Text('Erreur'),
         ),
         body: Center(
-          child: Text("Erreur: '" + routeName + "' non trouvé"),
+          child: Text("Erreur: page '" + routeName + "' non trouvé"),
         ),
       );
     });

@@ -27,7 +27,7 @@ class OTRBottomNavigationBar extends StatelessWidget {
     OTRNavigation.home,
     OTRNavigation.people,
     OTRNavigation.calendar,
-    // OTRNavigation.shopping,
+    // OTRNavigation.classement,
     // OTRNavigation.param
   ];
 
@@ -75,8 +75,10 @@ class OTRUtils {
           leftBarIndicatorColor: Colors.red[300],
         )
           ..onStatusChanged = (FlushbarStatus status) {
-            if (status == FlushbarStatus.IS_HIDING && pop)
-              Navigator.of(context).maybePop();
+            if (status == FlushbarStatus.IS_HIDING) {
+              if (pop) Navigator.of(context).maybePop();
+              if (after != null) after();
+            }
           }
           ..show(context);
 
@@ -84,9 +86,6 @@ class OTRUtils {
       // after the repaint is complete, display a snackBar info
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showSnackBar();
-        if (after != null) {
-          after();
-        }
       });
     } else {
       showSnackBar();
