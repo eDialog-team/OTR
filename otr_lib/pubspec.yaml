@@ -29,6 +29,8 @@ dependencies:
 
   intl: ^0.15.8
   auto_size_text: ^2.1.0
+  sticky_headers: ^0.1.8
+  quiver: ^2.0.5
 
 
 dev_dependencies:

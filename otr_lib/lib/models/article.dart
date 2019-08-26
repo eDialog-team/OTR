@@ -20,12 +20,12 @@ class Article {
     abstract = json['abstract'];
     description = json['description'];
     producer = json['producer'] != null
-        ? new Producer.fromJson(json['producer'])
+        ?  Producer.fromJson(json['producer'])
         : null;
     if (json['menus'] != null) {
-      menus = new List<Menus>();
+      menus =  List<Menus>();
       json['menus'].forEach((v) {
-        menus.add(new Menus.fromJson(v));
+        menus.add( Menus.fromJson(v));
       });
     }
   }

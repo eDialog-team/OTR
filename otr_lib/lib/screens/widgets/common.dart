@@ -25,7 +25,7 @@ class OTRAppBar extends StatelessWidget implements PreferredSizeWidget {
 class OTRBottomNavigationBar extends StatelessWidget {
   final bottomItems = [
     OTRNavigation.home,
-    OTRNavigation.people,
+    OTRNavigation.players,
     OTRNavigation.calendar,
     // OTRNavigation.classement,
     // OTRNavigation.param

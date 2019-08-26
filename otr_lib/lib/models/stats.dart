@@ -9,11 +9,11 @@ class ApiResults {
     sportId = json['sportId'];
     name = json['name'];
     league =
-        json['league'] != null ? new League.fromJson(json['league']) : null;
+        json['league'] != null ?  League.fromJson(json['league']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['sportId'] = this.sportId;
     data['name'] = this.name;
     if (this.league != null) {
@@ -43,11 +43,11 @@ class League {
     abbreviation = json['abbreviation'];
     displayName = json['displayName'];
     season =
-        json['season'] != null ? new Season.fromJson(json['season']) : null;
+        json['season'] != null ?  Season.fromJson(json['season']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['leagueId'] = this.leagueId;
     data['name'] = this.name;
     data['abbreviation'] = this.abbreviation;
@@ -72,15 +72,15 @@ class Season {
     name = json['name'];
     isActive = json['isActive'];
     if (json['eventType'] != null) {
-      eventType = new List<EventType>();
+      eventType =  List<EventType>();
       json['eventType'].forEach((v) {
-        eventType.add(new EventType.fromJson(v));
+        eventType.add( EventType.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['season'] = this.season;
     data['name'] = this.name;
     data['isActive'] = this.isActive;
@@ -102,15 +102,15 @@ class EventType {
     eventTypeId = json['eventTypeId'];
     name = json['name'];
     if (json['events'] != null) {
-      events = new List<Events>();
+      events =  List<Events>();
       json['events'].forEach((v) {
-        events.add(new Events.fromJson(v));
+        events.add( Events.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['eventTypeId'] = this.eventTypeId;
     data['name'] = this.name;
     if (this.events != null) {
@@ -151,41 +151,41 @@ class Events {
   Events.fromJson(Map<String, dynamic> json) {
     eventId = json['eventId'];
     if (json['startDate'] != null) {
-      startDate = new List<StartDate>();
+      startDate =  List<StartDate>();
       json['startDate'].forEach((v) {
-        startDate.add(new StartDate.fromJson(v));
+        startDate.add( StartDate.fromJson(v));
       });
     }
     isTba = json['isTba'];
     isDataConfirmed = json['isDataConfirmed'] != null
-        ? new IsDataConfirmed.fromJson(json['isDataConfirmed'])
+        ?  IsDataConfirmed.fromJson(json['isDataConfirmed'])
         : null;
     eventStatus = json['eventStatus'] != null
-        ? new EventStatus.fromJson(json['eventStatus'])
+        ?  EventStatus.fromJson(json['eventStatus'])
         : null;
-    venue = json['venue'] != null ? new Venue.fromJson(json['venue']) : null;
+    venue = json['venue'] != null ?  Venue.fromJson(json['venue']) : null;
     if (json['teams'] != null) {
-      teams = new List<Teams>();
+      teams =  List<Teams>();
       json['teams'].forEach((v) {
-        teams.add(new Teams.fromJson(v));
+        teams.add( Teams.fromJson(v));
       });
     }
     replay = json['replay'];
     originalWeek = json['originalWeek'];
     week = json['week'];
     coverageLevel = json['coverageLevel'] != null
-        ? new CoverageLevel.fromJson(json['coverageLevel'])
+        ?  CoverageLevel.fromJson(json['coverageLevel'])
         : null;
     if (json['defendingXZeroTeam'] != null) {
-      defendingXZeroTeam = new List<DefendingXZeroTeam>();
+      defendingXZeroTeam =  List<DefendingXZeroTeam>();
       json['defendingXZeroTeam'].forEach((v) {
-        defendingXZeroTeam.add(new DefendingXZeroTeam.fromJson(v));
+        defendingXZeroTeam.add( DefendingXZeroTeam.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['eventId'] = this.eventId;
     if (this.startDate != null) {
       data['startDate'] = this.startDate.map((v) => v.toJson()).toList();
@@ -246,7 +246,7 @@ class StartDate {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['year'] = this.year;
     data['month'] = this.month;
     data['date'] = this.date;
@@ -268,7 +268,7 @@ class IsDataConfirmed {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['score'] = this.score;
     return data;
   }
@@ -297,7 +297,7 @@ class EventStatus {
   EventStatus.fromJson(Map<String, dynamic> json) {
     eventStatusId = json['eventStatusId'];
     period = json['period'];
-    time = json['time'] != null ? new Time.fromJson(json['time']) : null;
+    time = json['time'] != null ?  Time.fromJson(json['time']) : null;
     isActive = json['isActive'];
     defendingXZeroTeamId = json['defendingXZeroTeamId'];
     announcedInjuryTime = json['announcedInjuryTime'];
@@ -306,7 +306,7 @@ class EventStatus {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['eventStatusId'] = this.eventStatusId;
     data['period'] = this.period;
     if (this.time != null) {
@@ -335,7 +335,7 @@ class Time {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['minutes'] = this.minutes;
     data['seconds'] = this.seconds;
     data['additionalMinutes'] = this.additionalMinutes;
@@ -356,11 +356,11 @@ class Venue {
     name = json['name'];
     city = json['city'];
     country =
-        json['country'] != null ? new Country.fromJson(json['country']) : null;
+        json['country'] != null ?  Country.fromJson(json['country']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['venueId'] = this.venueId;
     data['name'] = this.name;
     data['city'] = this.city;
@@ -385,7 +385,7 @@ class Country {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['countryId'] = this.countryId;
     data['name'] = this.name;
     data['abbreviation'] = this.abbreviation;
@@ -426,7 +426,7 @@ class Teams {
   Teams.fromJson(Map<String, dynamic> json) {
     displayName = json['displayName'];
     teamColors = json['teamColors'] != null
-        ? new TeamColors.fromJson(json['teamColors'])
+        ?  TeamColors.fromJson(json['teamColors'])
         : null;
     formation = json['formation'];
     teamId = json['teamId'];
@@ -435,17 +435,17 @@ class Teams {
     shootoutGoals = json['shootoutGoals'];
     abbreviation = json['abbreviation'];
     teamLocationType = json['teamLocationType'] != null
-        ? new TeamLocationType.fromJson(json['teamLocationType'])
+        ?  TeamLocationType.fromJson(json['teamLocationType'])
         : null;
     record =
-        json['record'] != null ? new Record.fromJson(json['record']) : null;
+        json['record'] != null ?  Record.fromJson(json['record']) : null;
     score = json['score'];
     isWinner = json['isWinner'];
-    coach = json['coach'] != null ? new Coach.fromJson(json['coach']) : null;
+    coach = json['coach'] != null ?  Coach.fromJson(json['coach']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['displayName'] = this.displayName;
     if (this.teamColors != null) {
       data['teamColors'] = this.teamColors.toJson();
@@ -483,7 +483,7 @@ class TeamColors {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['primary'] = this.primary;
     data['shorts'] = this.shorts;
     return data;
@@ -502,7 +502,7 @@ class TeamLocationType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['teamLocationTypeId'] = this.teamLocationTypeId;
     data['name'] = this.name;
     return data;
@@ -527,7 +527,7 @@ class Record {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['wins'] = this.wins;
     data['losses'] = this.losses;
     data['ties'] = this.ties;
@@ -551,7 +551,7 @@ class Coach {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['coachId'] = this.coachId;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
@@ -571,7 +571,7 @@ class CoverageLevel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['coverageLevelId'] = this.coverageLevelId;
     data['name'] = this.name;
     return data;
@@ -590,7 +590,7 @@ class DefendingXZeroTeam {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['period'] = this.period;
     data['teamId'] = this.teamId;
     return data;

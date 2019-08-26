@@ -16,7 +16,7 @@ import 'package:otr_lib/services/corpus.dart';
 import 'package:provider/provider.dart';
 
 final unescape = HtmlUnescape();
-final RegExp deleteHtmlTagsnew = RegExp(r"<[^>]*>");
+final RegExp deleteHtmlTags = RegExp(r"<[^>]*>");
 
 final Either<OTRState, Corpus> _initialDataProvider = Left(OTRState.loading());
 final Either<OTRState, Corpus> _errorProvider = Left(OTRState.serverError());
@@ -151,7 +151,7 @@ class _CorpusCarousel extends StatelessWidget {
                               child: Text(
                                 unescape
                                     .convert(_medias[i].description)
-                                    .replaceAll(deleteHtmlTagsnew, ""),
+                                    .replaceAll(deleteHtmlTags, ""),
                                 // description style
                                 style: TextStyle(
                                   fontSize: 18.5,

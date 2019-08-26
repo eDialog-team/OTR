@@ -23,7 +23,7 @@ class Media {
   }
 
   factory Media.fromJson(Map<String, dynamic> json) {
-    return new Media(
+    return  Media(
       creation: json['creation'] as String,
       description: json['description'] as String,
       link: json['link'] as String,
@@ -43,11 +43,11 @@ class Corpus {
   Corpus({this.description, this.id, this.medias, this.name});
 
   factory Corpus.fromJson(dynamic json) {
-    return new Corpus(
+    return  Corpus(
       description: json['description'] as String,
       id: json['id'] as String,
       medias: json['medias']
-          .map<Media>((json) => new Media.fromJson(json))
+          .map<Media>((json) =>  Media.fromJson(json))
           .toList(),
       name: json['name'] as String,
     );

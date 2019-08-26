@@ -14,7 +14,7 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:otr_lib/app.dart';
 
 final _requestUrl =
-    "webservice/_proxy_stats.asp?uri=v1%2Fstats%2Fsoccer%2Ffran%2Fscores%2F&accept=json&languageId=6&v=";
+    "webservice/_proxy_stats.asp?uri=v1%2Fstats%2Fsoccer%2Ffran%2Fscores%2F&accept=json&languageId=6";
 
 // Copy root dio http client config
 final _statdio = Dio(dio.options)
@@ -45,17 +45,17 @@ class _Response {
     }
 
     if (responseBody.length == 0) {
-      return new Left(OTRState.serverError());
+      return Left(OTRState.serverError());
     }
 
-    var apiResults = new List<ApiResults>();
+    var apiResults = List<ApiResults>();
     if (parsed['apiResults'] != null) {
       parsed['apiResults'].forEach((v) {
-        apiResults.add(new ApiResults.fromJson(v));
+        apiResults.add(ApiResults.fromJson(v));
       });
     }
     // TODO check of access to eventType is valid.
-    return new Right(apiResults[0].league);
+    return Right(apiResults[0].league);
   }
 }
 
@@ -85,7 +85,7 @@ Future<Either<OTRState, League>> fetchStats({
   return compute(_Response.parse, response.data);
 }
 
-class Stats {
+class StatsUtils {
   static List<Events> filterEventsForTeamID(List<Events> events, teamID) {
     return events
         .where((e) => e.teams.map((t) => t.teamId).contains(teamID))
@@ -93,7 +93,7 @@ class Stats {
   }
 
   static Events closestEvent(List<Events> events) {
-    var now = new DateTime.now();
+    var now = DateTime.now();
     // now = now.subtract(Duration(days: 11)); // for testing
 
     var eventsWithDate = events.map((e) {
@@ -114,7 +114,7 @@ class Stats {
   static final aVenirStr = "A venir";
 
   static String introduceMessage(Events event) {
-    var now = new DateTime.now();
+    var now = DateTime.now();
     var startDate = event.startDate[0];
     var eventStartDate = DateTime(startDate.year, startDate.month,
         startDate.date, startDate.hour ?? 0, startDate.minute ?? 0);

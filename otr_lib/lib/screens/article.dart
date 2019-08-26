@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:otr_lib/models/corpus.dart';
 import 'package:otr_lib/screens/widgets/article_content.dart';
 
+// When returning a Scaffold, I like to extract the widgets from the `screens`
+// directory to the `widgets` dir.
+// (OTRArticleContent in this case)
+
 class OTRArticle extends StatelessWidget {
   final Media media;
   OTRArticle({

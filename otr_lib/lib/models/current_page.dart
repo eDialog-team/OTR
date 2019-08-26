@@ -29,14 +29,14 @@ class MainPagePosition with ChangeNotifier {
   }
 }
 
-enum OTRNavigation { home, people, calendar, classement, shopping, param }
+enum OTRNavigation { home, players, calendar, classement, shopping, param }
 
 class OTRNavigationHelper {
   static Map<String, Object> getDisplay(OTRNavigation value) {
     switch (value) {
       case OTRNavigation.home:
         return {"icon": Icons.home, "text": "Accueil"};
-      case OTRNavigation.people:
+      case OTRNavigation.players:
         return {"icon": Icons.people, "text": 'Effectif'};
       case OTRNavigation.calendar:
         return {"icon": Icons.calendar_today, "text": 'Calendrier'};

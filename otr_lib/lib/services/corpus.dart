@@ -17,7 +17,7 @@ class _Response {
   // TODO if type != true throw an exception
   static Either<OTRState, Corpus> parse(String responseBody) {
     final parsed = jsonDecode(responseBody);
-    return new Right(Corpus.fromJson(parsed['corpus']));
+    return  Right(Corpus.fromJson(parsed['corpus']));
   }
 }
 

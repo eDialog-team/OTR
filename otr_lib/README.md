@@ -2,37 +2,36 @@
 
 Companion library for OTRs projets
 
-
 A Flutter lib that contains the UI and state management for OTR applications.
 
 ## Goals for this lib
-
-* Be importable into OTR implementation, no copy/paste of business logic/UI
-* Show simple use of [`Provider`](https://pub.dev/packages/provider) for providing an immutable value to a subtree
-* Show simple use of Widget.
+* Be importable into OTR implementations, no copy/paste!
+* Show use of [`Provider`](https://pub.dev/packages/provider) for providing an immutable value to a UI subtree
+* Show use of many flutter Widget.
 
 ## The important bits
-
-
 ### [`lib/common/projects.dart`](lib/common/projects.dart)
-Here the app sets up the Application name, Theming and baseURL.
+Here the user sets up the Application name, Theming and baseURL.
 
+### [`lib/route_generator.dart`](lib/route_generator.dart)
+When a new page is push through flutter [`Navigator.push`](https://flutter.dev/docs/cookbook/navigation/navigation-basics),
+this class gets called and returns a new [`MaterialPageRoute`](https://api.flutter.dev/flutter/material/MaterialPageRoute-class.html).
 
 ### [`lib/models/*`](lib/models/)
-This directory contains the model classes that are provided through the app.  
-These classes represent the app state and API result, mostly generated code from
+This directory contains the model classes that flow through the app.  
+These classes represent the app state and API result that are mostly generated code from
 [json_to_dart](https://javiercbk.github.io/json_to_dart/).
 
-Event tho the models are object, they must not implement business logic code!
+Event tho the models are object, I like to keep the business logic outside of them.
 
 ### [`lib/screens/*`](lib/screens/)
-This directory contains high-level UI used to construct the UI of the app.
+This directory contains high-level widgets used to construct the UI of the app.
 These widgets have access to the current state through the
 [`Provider`](https://pub.dev/packages/provider) dependency injection and state
 management library.
 
 ### [`lib/screens/widgets*`](lib/screens/widgets)
-This directory the widgets that describe the view.
+This directory contains the widgets that describe sub elements of the UI.
 
 ### [`lib/services/*`](lib/services/)
 This directory contains the business logic related to fetching data from the

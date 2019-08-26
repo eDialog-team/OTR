@@ -25,7 +25,7 @@ class _Response {
       parsed = jsonDecode(parsed);
     }
 
-    return new Right(Article.fromJson(parsed['article']));
+    return  Right(Article.fromJson(parsed['article']));
   }
 }
 
