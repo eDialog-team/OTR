@@ -22,6 +22,11 @@ class OTRStatMatchScoreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
+        // Navigator.of(context).pushNamed(
+        // '/event-dashboard',
+        // arguments: event.eventId,
+        // );
+
         await launch(Provider.of<OTRProjects>(context).starterUrl +
             "matches/${event.eventId}/dashboard");
       },

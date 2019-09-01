@@ -108,6 +108,11 @@ class _PlayersList extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () async {
+                // Navigator.of(context).pushNamed(
+                // '/profil',
+                // arguments: _orderedByPositionplayers[index].people.id,
+                // );
+
                 await launch(Provider.of<OTRProjects>(context).starterUrl +
                     "profil/" +
                     _orderedByPositionplayers[index].people.id);
